@@ -102,11 +102,13 @@ def calculate_recommendations(req: RecommendationRequest, db: Session):
                 is_valid = False
 
         # 3. Route 材質匹配
-        if 'EDS' in safe_route or 'ALD' in safe_route:
-            if req.require_solid_carbon:
-                if 'Holey' in str(grid['grid_type']):
-                    is_valid = False
-            else:
+        if req.require_solid_carbon:
+            # 勾選 Solid Carbon 則絕對排除 Holey
+            if 'Holey' in str(grid['grid_type']):
+                is_valid = False
+        else:
+            # 若未要求 Solid Carbon，則依照站點特性：EDS 與 ALD 預設必須是 Holey
+            if 'EDS' in safe_route or 'ALD' in safe_route:
                 if 'Holey' not in str(grid['grid_type']):
                     is_valid = False
             
@@ -116,11 +118,10 @@ def calculate_recommendations(req: RecommendationRequest, db: Session):
             if req.is_low_pip:
                 reasons.append("Meets the criteria for Low PIP private network and Lot ID binding.")
 
-            if 'EDS' in safe_route or 'ALD' in safe_route:
-                if req.require_solid_carbon:
-                    reasons.append("Solid Carbon Compliant (Non-Holey).")
-                else:
-                    reasons.append("Meets default Holey material requirements for EDS/ALD.")
+            if req.require_solid_carbon:
+                reasons.append("Solid Carbon Compliant (Non-Holey).")
+            elif 'EDS' in safe_route or 'ALD' in safe_route:
+                reasons.append("Meets default Holey material requirements for EDS/ALD.")
 
             if req.lot_id.strip() and req.lot_id.strip() in str(grid['assigned_lot_id']):
                 score += 50

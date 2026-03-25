@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 from typing import List, Optional
 
 # --- Requests ---
@@ -10,6 +10,12 @@ class RecommendationRequest(BaseModel):
     lot_id: str = ""
     is_low_pip: bool = False
     require_solid_carbon: bool = False
+
+    @model_validator(mode='after')
+    def check_low_pip_requires_lot_id(self):
+        if self.is_low_pip and not self.lot_id.strip():
+            raise ValueError('Lot ID must be provided when Requires Low PIP is checked.')
+        return self
 
 class AllocationRequest(BaseModel):
     grid_id: str

@@ -186,6 +186,12 @@ watch(() => form.value.company, () => {
 // 處理搜尋動作
 const handleSearch = async () => {
   const { company, customer, route, lot_id, is_low_pip } = form.value;
+
+  if (is_low_pip && !lot_id.trim()) {
+    alert("Please enter Lot ID when Requires Low PIP is checked.");
+    return;
+  }
+
   if (!company && !customer && !route && !lot_id.trim() && !is_low_pip) {
     alert("Please enter or select at least one condition before searching.");
     return;
