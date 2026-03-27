@@ -1,7 +1,7 @@
 <template>
   <div class="p-4 w-full">
     <div class="flex justify-between items-center border-b border-gray-200 pb-2 mb-4">
-      <h1 class="text-xl text-gray-800">Smart Grid Allocator (UI Code: grid_alloc)</h1>
+      <h1 class="text-xl text-gray-800">Smart Grid Allocator</h1>
     </div>
 
     <div class="space-y-4 mb-4">
@@ -62,7 +62,7 @@
       <p>{{ store.error }}</p>
     </div>
 
-    <div class="border border-[var(--color-table-border)] rounded-[10px] overflow-hidden">
+    <div class="w-full mt-4">
       <ag-grid-vue
         theme="legacy"
         class="ag-theme-balham"
@@ -73,6 +73,9 @@
         :suppressCellFocus="true"
         :overlayNoRowsTemplate="noRowsTemplate"
         @cellClicked="onCellClicked"
+        :pagination="true" 
+        :paginationPageSize="10"
+        :paginationPageSizeSelector="[10, 20, 50, 100]"
       >
       </ag-grid-vue>
     </div>
@@ -142,7 +145,7 @@ const columnDefs = ref([
     headerName: 'Action',
     width: 90,
     cellClass: 'action-btn-cell',
-    cellRenderer: () => `<button style="display: block; width: 100%; box-sizing: border-box; background-color: #337ab7; border: 1px solid #2e6da4; color: white; padding: 1px 5px; border-radius: 10px; font-size: 12px; cursor: pointer; text-align: center;">Select</button>`
+    cellRenderer: () => `<a href="#" class="company-btn">Select</a>`
   }
 ]);
 
