@@ -1,1 +1,90 @@
 @import "tailwindcss";
+
+@theme {
+  --color-brand-btn: #337ab7;
+  --color-brand-btn-border: #2e6da4;
+  --color-table-header: #5b9bd5;
+  --color-table-border: #9bc2e6;
+  --color-danger-text: #d9534f;
+  --color-table-row-even: #d9e1f2;
+  --color-table-row-odd: #ffffff;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  background-color: #ffffff;
+  color: #333333;
+}
+
+/* 針對 ag-grid-balham 主題進行絕對的樣式覆寫以模仿舊系統的 ag-blue */
+
+/* 強制表頭為藍底白字 */
+.ag-theme-balham .ag-header {
+  background-color: var(--color-table-header) !important;
+  border-bottom: 1px solid var(--color-table-border) !important;
+}
+
+.ag-theme-balham .ag-header-cell-text,
+.ag-theme-balham .ag-header-icon,
+.ag-theme-balham .ag-header-cell-label {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* 資料列樣式 */
+.ag-theme-balham .ag-row {
+  border-bottom-color: transparent !important;
+}
+
+.ag-theme-balham .ag-row-even {
+  background-color: var(--color-table-row-even) !important;
+}
+
+.ag-theme-balham .ag-row-odd {
+  background-color: var(--color-table-row-odd) !important;
+}
+
+.ag-theme-balham .ag-row:hover {
+  background-color: #e8f0fe !important;
+}
+
+/* 儲存格內部虛線樣式 */
+.ag-theme-balham .ag-cell {
+  border-right: 1px dotted var(--color-table-border) !important;
+  border-bottom: 1px dotted var(--color-table-border) !important;
+  display: flex;
+  align-items: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: 13px !important;
+}
+
+/* 取消最後一個欄位的右側虛線 */
+.ag-theme-balham .ag-cell:last-child {
+  border-right: none !important;
+}
+
+/* 確保 AG Grid 內部的 cell-value 容器為 100% 寬度，這樣內部的按鈕才能撐滿整個格子 */
+.ag-theme-balham .ag-cell-value {
+  width: 100%;
+}
+
+/* 確保按鈕在 grid 內部正確填滿 */
+.ag-theme-balham .ag-cell-wrapper {
+  width: 100%;
+}
+
+/* 縮小儲存格的左右內距，讓按鈕可以盡量貼齊邊緣 */
+.ag-theme-balham .ag-cell.action-btn-cell {
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* 強制打破預設 span 的行內限制，讓寬度 100% 真正生效 */
+.ag-theme-balham .ag-cell.action-btn-cell .ag-cell-value {
+  width: 100% !important;
+  display: block !important;
+}

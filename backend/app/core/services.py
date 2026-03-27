@@ -139,7 +139,7 @@ def calculate_recommendations(req: RecommendationRequest, db: Session):
                 reasons.append(f"AI Bonus (+{bonus})")
             
             candidates.append({
-                'Grid ID': grid['grid_id'],
+                'Mesh': grid['grid_id'],
                 'Grid Type': grid['grid_type'],
                 'Slots': f"{grid['current_samples_count']}/8",
                 'Score': score,

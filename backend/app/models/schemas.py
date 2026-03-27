@@ -31,7 +31,7 @@ class GridOptionResponse(BaseModel):
     routes: List[str]
 
 class RecommendationItem(BaseModel):
-    grid_id: str = Field(..., alias="Grid ID")
+    grid_id: str = Field(..., alias="Mesh")
     grid_type: str = Field(..., alias="Grid Type")
     slots: str = Field(..., alias="Slots")
     score: int = Field(..., alias="Score")
